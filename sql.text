@@ -1,0 +1,25 @@
+// SQL query to find the number of flights from New York City to Paris //
+
+SELECT COUNT(*)
+FROM routes AS r
+INNER JOIN airports AS origin ON r.origin_id = origin.id
+INNER JOIN airports AS destination ON r.dest_id = destination.id
+WHERE origin.city = 'New York' AND destination.city = 'Paris';
+
+// Airlines Traveling from NYC to Paris
+
+SELECT DISTINCT a.name
+FROM routes AS r
+INNER JOIN airports AS origin ON r.origin_id = origin.id
+INNER JOIN airports AS destination ON r.dest_id = destination.id
+INNER JOIN airlines AS a ON r.airline_id = a.id
+WHERE origin.city = 'New York' AND destination.city = 'Paris';
+
+// All flights that leave NYC and their destinations
+
+SELECT destination.city, COUNT(*) AS num_flights
+FROM routes AS r
+INNER JOIN airports AS origin ON r.origin_id = origin.id
+INNER JOIN airports AS destination ON r.dest_id = destination.id
+WHERE origin.city = 'New York'
+GROUP BY destination.city;
